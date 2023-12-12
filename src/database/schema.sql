@@ -18,3 +18,5 @@ CREATE TABLE IF NOT EXISTS contacts (
 
 ALTER TABLE IF EXISTS public.categories
     OWNER to admin;
+
+CREATE USER admin WITH PASSWORD 'root';
