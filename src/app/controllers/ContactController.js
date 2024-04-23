@@ -1,5 +1,7 @@
 const ContactsRepository = require("../repositories/ContactsRepository");
 
+const { STATUS } = require("../../utils/common/constant/status");
+
 class ContactController {
   async index(req, res) {
     const { orderBy } = req.query;
@@ -15,7 +17,7 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return res.status(404).json({ error: "Contact not found." });
+      return res.status(404).json({ error: STATUS.CONTACT.NOT_FOUND });
     }
 
     res.json(contactExists);
@@ -25,13 +27,13 @@ class ContactController {
     const { name, email, phone, category_id } = req.body;
 
     if (!name) {
-      return res.status(400).json({ error: "Name is required." });
+      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const contactExists = await ContactsRepository.findByEmail(email);
 
     if (contactExists) {
-      return res.status(400).json({ error: "This e-mail is already in use." });
+      return res.status(400).json({ error: STATUS.CONTACT.EMAIL_IN_USE });
     }
 
     const contact = await ContactsRepository.create({
@@ -51,17 +53,17 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return res.status(404).json({ error: "Contact not found." });
+      return res.status(404).json({ error: STATUS.CONTACT.NOT_FOUND });
     }
 
     if (!name) {
-      return res.status(400).json({ error: "Name is required." });
+      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const contactByEmail = await ContactsRepository.findByEmail(email);
 
     if (contactByEmail && contactByEmail._id !== id) {
-      return res.status(400).json({ error: "This e-mail is already in use." });
+      return res.status(400).json({ error: STATUS.CONTACT.EMAIL_IN_USE });
     }
 
     const contact = await ContactsRepository.update(id, {
@@ -79,7 +81,7 @@ class ContactController {
 
     await ContactsRepository.delete(id);
 
-    res.sendStatus(204);
+    res.status(200).json({ status: STATUS.ALL.DELETED_ITEM });
   }
 }
 

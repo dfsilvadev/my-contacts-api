@@ -1,5 +1,7 @@
 const CategoriesRepository = require("../repositories/CategoriesRepository");
 
+const { STATUS } = require("../../utils/common/constant/status");
+
 class CategoryController {
   async index(req, res) {
     const { orderBy } = req.query;
@@ -15,7 +17,7 @@ class CategoryController {
     const categoryExists = await CategoriesRepository.findById(id);
 
     if (!categoryExists) {
-      return res.status(404).json({ error: "Contact not found." });
+      return res.status(404).json({ error: STATUS.CATEGORY.NOT_FOUND });
     }
 
     res.json(categoryExists);
@@ -27,7 +29,7 @@ class CategoryController {
     console.log(name);
 
     if (!name) {
-      return res.status(400).json({ error: "Name is required." });
+      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const category = await CategoriesRepository.create({ name });
@@ -42,11 +44,13 @@ class CategoryController {
     const categoryExists = await CategoriesRepository.findById(id);
 
     if (!categoryExists) {
-      return res.status(404).json({ error: "Category not found." });
+      return res.status(404).json({ error: STATUS.CATEGORY.NOT_FOUND });
     }
 
     if (!name) {
-      return res.status(400).json({ error: "Name is required." });
+      return res
+        .status(400)
+        .json({ error: STATUS.ALL.STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const category = await CategoriesRepository.update(id, {
@@ -61,7 +65,7 @@ class CategoryController {
 
     await CategoriesRepository.delete(id);
 
-    res.sendStatus(204);
+    res.status(200).json({ status: STATUS.ALL.DELETED_ITEM });
   }
 }
 
