@@ -3,14 +3,30 @@ const ContactsRepository = require("../repositories/ContactsRepository");
 const { STATUS } = require("../../utils/common/constant/status");
 
 class ContactController {
+  /**
+   * Get All Contacts
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async index(req, res) {
     const { orderBy } = req.query;
 
     const contacts = await ContactsRepository.findAll(orderBy);
 
+    /**
+     * Wildcard => Curinga
+     * res.setHeader("Access-Control-Allow-Origin", "*");
+     */
     res.json(contacts);
   }
 
+  /**
+   * Get Contact By ID
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async show(req, res) {
     const { id } = req.params;
 
@@ -23,6 +39,12 @@ class ContactController {
     res.json(contactExists);
   }
 
+  /**
+   * Create New Contact
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async store(req, res) {
     const { name, email, phone, category_id } = req.body;
 
@@ -46,6 +68,12 @@ class ContactController {
     res.json(contact);
   }
 
+  /**
+   * Update Contact
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async update(req, res) {
     const { id } = req.params;
     const { name, email, phone, category_id } = req.body;
@@ -76,6 +104,12 @@ class ContactController {
     res.json(contact);
   }
 
+  /**
+   * Delete Contact
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async delete(req, res) {
     const { id } = req.params;
 

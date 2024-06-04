@@ -3,6 +3,12 @@ const CategoriesRepository = require("../repositories/CategoriesRepository");
 const { STATUS } = require("../../utils/common/constant/status");
 
 class CategoryController {
+  /**
+   * Get All Categories
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async index(req, res) {
     const { orderBy } = req.query;
 
@@ -11,6 +17,12 @@ class CategoryController {
     res.json(category);
   }
 
+  /**
+   * Get Category By ID
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async show(req, res) {
     const { id } = req.params;
 
@@ -23,6 +35,12 @@ class CategoryController {
     res.json(categoryExists);
   }
 
+  /**
+   * Create New Category
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async store(req, res) {
     const { name } = req.body;
 
@@ -37,6 +55,12 @@ class CategoryController {
     res.json(category);
   }
 
+  /**
+   * Update Category
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async update(req, res) {
     const { id } = req.params;
     const { name } = req.body;
@@ -60,6 +84,12 @@ class CategoryController {
     res.json(category);
   }
 
+  /**
+   * Delete Category
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   async delete(req, res) {
     const { id } = req.params;
 
