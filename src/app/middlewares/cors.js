@@ -1,4 +1,3 @@
-module.exports = (_, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-  next();
-};
+const cors = require("cors");
+
+module.exports = cors({ credentials: true, origin: "http://localhost:5173" });
