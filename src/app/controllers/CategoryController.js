@@ -44,15 +44,13 @@ class CategoryController {
   async store(req, res) {
     const { name } = req.body;
 
-    console.log(name);
-
     if (!name) {
       return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const category = await CategoriesRepository.create({ name });
 
-    res.json(category);
+    res.status(201).json(category);
   }
 
   /**
@@ -95,7 +93,7 @@ class CategoryController {
 
     await CategoriesRepository.delete(id);
 
-    res.status(200).json({ status: STATUS.ALL.DELETED_ITEM });
+    res.status(200).json({ status: 200, message: STATUS.ALL.DELETED_ITEM });
   }
 }
 
