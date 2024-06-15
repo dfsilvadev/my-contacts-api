@@ -93,7 +93,7 @@ class CategoryController {
 
     await CategoriesRepository.delete(id);
 
-    res.status(200).json({ status: 200, message: STATUS.ALL.DELETED_ITEM });
+    res.status(200).json({ status: "Ok", message: STATUS.ALL.DELETED_ITEM });
   }
 }
 
