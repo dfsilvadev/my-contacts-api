@@ -22,10 +22,11 @@ class ContactsRepository {
     const [row] = await db.query(
       `
       SELECT contacts.*,
-      categories.name AS category_name,
-      categories.id AS category_id
-      FROM contacts
-      JOIN categories ON categories.id = contacts.category_id
+        contacts.category_id,
+        categories.name AS category_name,
+        categories.id AS category_id
+      FROM public.contacts
+      LEFT JOIN public.categories ON categories.id = contacts.category_id
       WHERE contacts.id = $1
     `,
       [id]

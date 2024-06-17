@@ -33,7 +33,9 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return res.status(404).json({ error: STATUS.CONTACT.NOT_FOUND });
+      return res
+        .status(404)
+        .json({ error: true, message: STATUS.CONTACT.NOT_FOUND });
     }
 
     res.json(contactExists);
@@ -49,13 +51,17 @@ class ContactController {
     const { name, email, phone, category_id } = req.body;
 
     if (!name) {
-      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const contactExists = await ContactsRepository.findByEmail(email);
 
     if (contactExists) {
-      return res.status(400).json({ error: STATUS.CONTACT.EMAIL_IN_USE });
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
     }
 
     const contact = await ContactsRepository.create({
@@ -81,17 +87,23 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return res.status(404).json({ error: STATUS.CONTACT.NOT_FOUND });
+      return res
+        .status(404)
+        .json({ error: true, message: STATUS.CONTACT.NOT_FOUND });
     }
 
     if (!name) {
-      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const contactByEmail = await ContactsRepository.findByEmail(email);
 
     if (contactByEmail && contactByEmail._id !== id) {
-      return res.status(400).json({ error: STATUS.CONTACT.EMAIL_IN_USE });
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
     }
 
     const contact = await ContactsRepository.update(id, {

@@ -29,7 +29,9 @@ class CategoryController {
     const categoryExists = await CategoriesRepository.findById(id);
 
     if (!categoryExists) {
-      return res.status(404).json({ error: STATUS.CATEGORY.NOT_FOUND });
+      return res
+        .status(404)
+        .json({ error: true, message: STATUS.CATEGORY.NOT_FOUND });
     }
 
     res.json(categoryExists);
@@ -45,7 +47,9 @@ class CategoryController {
     const { name } = req.body;
 
     if (!name) {
-      return res.status(400).json({ error: STATUS.ALL.NAME_IS_REQUESTED });
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
     const category = await CategoriesRepository.create({ name });
@@ -66,13 +70,16 @@ class CategoryController {
     const categoryExists = await CategoriesRepository.findById(id);
 
     if (!categoryExists) {
-      return res.status(404).json({ error: STATUS.CATEGORY.NOT_FOUND });
+      return res
+        .status(404)
+        .json({ error: true, message: STATUS.CATEGORY.NOT_FOUND });
     }
 
     if (!name) {
-      return res
-        .status(400)
-        .json({ error: STATUS.ALL.STATUS.ALL.NAME_IS_REQUESTED });
+      return res.status(400).json({
+        error: true,
+        message: STATUS.ALL.STATUS.ALL.NAME_IS_REQUESTED,
+      });
     }
 
     const category = await CategoriesRepository.update(id, {
