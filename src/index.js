@@ -3,7 +3,7 @@ require("express-async-errors");
 
 const cors = require("./app/middlewares/cors");
 const errorHandler = require("./app/middlewares/errorHandles");
-const routes = require("./routes");
+const routes = require("./routes/index");
 
 const app = express();
 const PORT = 3000;
