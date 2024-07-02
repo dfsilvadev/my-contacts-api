@@ -111,6 +111,12 @@ class CategoryController {
   async delete(req, res) {
     const { id } = req.params;
 
+    if (!isValidUUID(id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
+
     await CategoriesRepository.delete(id);
 
     res.status(200).json({ status: "Ok", message: STATUS.ALL.DELETED_ITEM });
