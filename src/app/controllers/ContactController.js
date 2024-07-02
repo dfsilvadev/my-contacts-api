@@ -1,6 +1,7 @@
 const ContactsRepository = require("../repositories/ContactsRepository");
 
 const { STATUS } = require("../../utils/common/constant/status");
+const isValidUUID = require("../../utils/common/isValidUUID.js");
 
 class ContactController {
   /**
@@ -30,6 +31,12 @@ class ContactController {
   async show(req, res) {
     const { id } = req.params;
 
+    if (!isValidUUID(id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
+
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
@@ -56,6 +63,12 @@ class ContactController {
         .json({ error: true, message: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
+    if (category_id && !isValidUUID(category_id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
+
     const contactExists = await ContactsRepository.findByEmail(email);
 
     if (contactExists) {
@@ -68,7 +81,7 @@ class ContactController {
       name,
       email,
       phone,
-      category_id,
+      category_id: category_id || null,
     });
 
     res.status(201).json(contact);
@@ -83,6 +96,12 @@ class ContactController {
   async update(req, res) {
     const { id } = req.params;
     const { name, email, phone, category_id } = req.body;
+
+    if (!isValidUUID(id) || (category_id && !isValidUUID(category_id))) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
 
     const contactExists = await ContactsRepository.findById(id);
 
@@ -110,7 +129,7 @@ class ContactController {
       name,
       email,
       phone,
-      category_id,
+      category_id: category_id || null,
     });
 
     res.json(contact);

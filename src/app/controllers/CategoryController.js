@@ -1,6 +1,7 @@
 const CategoriesRepository = require("../repositories/CategoriesRepository");
 
 const { STATUS } = require("../../utils/common/constant/status");
+const isValidUUID = require("../../utils/common/isValidUUID.js");
 
 class CategoryController {
   /**
@@ -25,6 +26,12 @@ class CategoryController {
    */
   async show(req, res) {
     const { id } = req.params;
+
+    if (!isValidUUID(id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
 
     const categoryExists = await CategoriesRepository.findById(id);
 
@@ -66,6 +73,12 @@ class CategoryController {
   async update(req, res) {
     const { id } = req.params;
     const { name } = req.body;
+
+    if (!isValidUUID(id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+    }
 
     const categoryExists = await CategoriesRepository.findById(id);
 
