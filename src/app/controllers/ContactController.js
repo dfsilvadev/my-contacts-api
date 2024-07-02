@@ -34,7 +34,7 @@ class ContactController {
     if (!isValidUUID(id)) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     const contactExists = await ContactsRepository.findById(id);
@@ -66,7 +66,7 @@ class ContactController {
     if (category_id && !isValidUUID(category_id)) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     if (email) {
@@ -102,7 +102,7 @@ class ContactController {
     if (!isValidUUID(id) || (category_id && !isValidUUID(category_id))) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     const contactExists = await ContactsRepository.findById(id);
@@ -151,7 +151,7 @@ class ContactController {
     if (!isValidUUID(id)) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     await ContactsRepository.delete(id);

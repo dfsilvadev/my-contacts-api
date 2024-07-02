@@ -2,7 +2,7 @@ const STATUS = {
   ALL: {
     DELETED_ITEM: "DELETED_ITEM",
     NAME_IS_REQUESTED: "NAME_IS_REQUESTED",
-    INVALID_USER_ID: "INVALID_USER_ID",
+    INVALID_ID: "INVALID_ID",
   },
   CONTACT: {
     EMAIL_IN_USE: "EMAIL_IN_USE", // This e-mail is already in use.

@@ -30,7 +30,7 @@ class CategoryController {
     if (!isValidUUID(id)) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     const categoryExists = await CategoriesRepository.findById(id);
@@ -77,7 +77,7 @@ class CategoryController {
     if (!isValidUUID(id)) {
       return res
         .status(400)
-        .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
     }
 
     const categoryExists = await CategoriesRepository.findById(id);
@@ -114,7 +114,11 @@ class CategoryController {
     if (!isValidUUID(id)) {
       return res
         .status(400)
+<<<<<<< HEAD
         .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
+=======
+        .json({ error: true, message: STATUS.ALL.INVALID_ID });
+>>>>>>> df66a1f (feat: add uuid validation.)
     }
 
     await CategoriesRepository.delete(id);
