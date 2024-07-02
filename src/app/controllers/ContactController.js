@@ -69,17 +69,19 @@ class ContactController {
         .json({ error: true, message: STATUS.ALL.INVALID_USER_ID });
     }
 
-    const contactExists = await ContactsRepository.findByEmail(email);
+    if (email) {
+      const contactExists = await ContactsRepository.findByEmail(email);
 
-    if (contactExists) {
-      return res
-        .status(400)
-        .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
+      if (contactExists) {
+        return res
+          .status(400)
+          .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
+      }
     }
 
     const contact = await ContactsRepository.create({
       name,
-      email,
+      email: email || null,
       phone,
       category_id: category_id || null,
     });
@@ -117,17 +119,19 @@ class ContactController {
         .json({ error: true, message: STATUS.ALL.NAME_IS_REQUESTED });
     }
 
-    const contactByEmail = await ContactsRepository.findByEmail(email);
+    if (email) {
+      const contactByEmail = await ContactsRepository.findByEmail(email);
 
-    if (contactByEmail && contactByEmail._id !== id) {
-      return res
-        .status(400)
-        .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
+      if (contactByEmail && contactByEmail._id !== id) {
+        return res
+          .status(400)
+          .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
+      }
     }
 
     const contact = await ContactsRepository.update(id, {
       name,
-      email,
+      email: email || null,
       phone,
       category_id: category_id || null,
     });
