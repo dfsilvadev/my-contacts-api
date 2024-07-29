@@ -122,7 +122,7 @@ class ContactController {
     if (email) {
       const contactByEmail = await ContactsRepository.findByEmail(email);
 
-      if (contactByEmail && contactByEmail._id !== id) {
+      if (contactByEmail && contactByEmail.id !== id) {
         return res
           .status(400)
           .json({ error: true, message: STATUS.CONTACT.EMAIL_IN_USE });
@@ -156,7 +156,7 @@ class ContactController {
 
     await ContactsRepository.delete(id);
 
-    res.status(200).json({ status: "Ok", message: STATUS.ALL.DELETED_ITEM });
+    res.status(200).json({ status: "deleted", message: STATUS.ALL.DELETED_ITEM });
   }
 }
 
