@@ -1,3 +1,4 @@
+require("dotenv/config.js");
 const express = require("express");
 require("express-async-errors");
 
@@ -6,7 +7,7 @@ const errorHandler = require("./app/middlewares/errorHandles");
 const routes = require("./routes/index");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors);
